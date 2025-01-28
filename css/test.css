@@ -1,0 +1,33 @@
+.checkselect{
+    display: inline-block;
+    width: 160px;
+    position: relative;
+}
+.check{
+    background: white;
+    width: 160px;
+    border:1px solid black;
+    box-sizing: border-box; 
+    cursor: pointer;
+    text-align: center;
+}
+
+.checkselect:hover .popup{
+    display: block;
+}
+
+.popup{
+    background: white;
+    width: 160px;
+    border:1px solid black;
+    box-sizing: border-box; 
+    cursor: pointer;
+    display: none;
+    flex-direction: column;
+    position: absolute;
+}
+
+.popup label{
+    cursor: pointer;
+    display: block;
+}

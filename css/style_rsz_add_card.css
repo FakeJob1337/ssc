@@ -1,0 +1,53 @@
+body{
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+
+.sidenav {
+    background-color: #2c2e3e;
+}
+
+.sidenav div{
+    width: 100%;
+    border-bottom:2px solid #282a38;
+    height: 6%;
+}
+
+.sidenav a {
+    text-decoration: none;
+    color: #4f879b;
+    font-size: 0.75rem;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+.menu{
+    background-color: #e4e7ee;
+    box-sizing: border-box;
+    border-bottom: 2px solid #cfd0dd;
+    border-top: 2px solid #cfd0dd;
+    border-right: 2px solid #cfd0dd;
+}
+
+
+.table{
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+.table-scroll tbody {
+    position: absolute;
+    overflow-y: scroll;
+    height: 55vh;
+}
+
+.table-scroll tr {
+    width: 100%;
+    table-layout: fixed;
+    display: inline-table;
+}
+
