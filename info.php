@@ -25,8 +25,11 @@
 			<h1>Информация о военнослужащих</h1>
 		</header>
 		<div class="menu p-3">
-			<button type="button" id="add" class="btn btn-primary">
-				<i class="fa fa-plus fa-2x" aria-hidden="true"></i><br><p class="mb-0">Добавить</p>
+			<button type="button" id="add_people" class="btn btn-primary">
+				<i class="fa fa-plus fa-2x" aria-hidden="true"></i><br><p class="mb-0">Человека</p>
+			</button>
+			<button type="button" id="add_vacancy" class="btn btn-primary">
+				<i class="fa fa-plus fa-2x" aria-hidden="true"></i><br><p class="mb-0">Вакансию</p>
 			</button>
 			<button type="button" class="btn btn-success" id="btnExel">
 				<i class="fa fa-file-excel-o fa-2x" aria-hidden="true"></i><br><p class="mb-0">Exel</p>
@@ -112,8 +115,12 @@ function onOut() {
 	$(this).find('span.arrow').toggleClass('active');
 }
 
-$("#add").on( "click", function() {
+$("#add_people").on( "click", function() {
   window.location.href = "personal_card_add.php";
+} );
+
+$("#add_vacancy").on( "click", function() {
+  window.location.href = "vacancy_card_add.php";
 } );
 
 
