@@ -136,8 +136,6 @@ echo '<tbody>';
 				$Eslice = idate('d',strtotime($en));
 			}
 
-			# Надо отдельно вычислять диапазон чисел заранее
-			#узнать как выставлять числа
 			for ($x=$Sweek; $x <= $Eweek; $x++) {
 				$week_dict[$x] = 0;
 			}
@@ -172,12 +170,7 @@ echo '<tbody>';
 						echo "<td week='$i'></td> ";
 					}
 				}
-// 			foreach ($row as $key => $value) {
-// 				if ($key == 3 or $key == 4){
-					
-// 				}
-			
-// }
+
 	
 		
 	}

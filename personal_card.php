@@ -87,26 +87,12 @@ $row = $result->fetch();
             <button type="button" class="btn btn-secondary" onclick="get_ls()">Личная информация</button>
             <button type="button" class="btn btn-secondary" onclick="get_history()">История</button>
             <button type="button" class="btn btn-secondary" id="dolj" onclick="getFirstFilter()">Перенос</button>
-            <button type="button" class="btn btn-secondary" onclick="get_form()">Отпуск</button>
+            <button type="button" class="btn btn-success" onclick="set_inf()">Добавить остальную информацию</button>
         </div>
 
         <div class="bottom">
           <div class="perenos_t row" id="output2">
-        <div class="dutyForm" style="width: 10%; display: None;">
-        <form id="dutyForm">
-            <div class="mb-3">
-                <label for="date">Начало отпуска:</label>
-                <input type="date" class="form-control datepicker"  name="date" id="start">
-            </div>
-            <div class="mb-3">
-                <label for="end">Дней на выдачу:</label>
-                <input type="text" class="form-control" name="days"id="end">
-            </div>
-            <button type="button" id='send' class="btn btn-primary">Отправить</button>
-          </form>
-        </div>
           <footer>
-
           </footer>
         </div>
     </div>
@@ -136,50 +122,10 @@ window.sessionStorage.setItem("age", age);
           }
         })
     });
-// $('#dutyform').on('click', function() {
-//   event.preventDefault();
-//   let start = new Date($('#start').val()).toISOString().slice(0, 19).replace('T', ' ');
-//   let end = new Date($('#end').val()).toISOString().slice(0, 19).replace('T', ' ');
-//   id = window.sessionStorage.getItem("id");
-//   age = window.sessionStorage.getItem("age");
-//   $.ajax({
-//     type:"POST",
-//     url:"php_scripts/set_duty.php",
-//     data: {"id": id, "age": age, "start": start, "end": end},
-//     cache: false,
-//     success: (response) => {
-//         alert(id);
-//     }
-//   })
-// });
 
-// function set_duty() {
-//   let start = new Date($('#start').val());
-//   let end = new Date($('#end').val());
-//   id = window.sessionStorage.getItem("id");
-//   age = window.sessionStorage.getItem("age");
-//   $.ajax({
-//     type:"POST",
-//     url:"php_scripts/set_duty.php",
-//     data: {"id": id, "age": age, "start": start, "end": end},
-//     cache: false,
-//     success: (response) => {
-//         alert(id);
-//     }
-//   })
-// }
 
-function get_form() { 
-  $(".dutyForm").show()
-  // $.ajax({
-  //   type:"POST",
-  //   url:"php_scripts/get_form.php",
-  //   data: {},
-  //   cache: false,
-  //   success: function(responce){
-  //     $("#output2").html(responce);
-  //   }
-  // })
+function set_inf() {  
+  window.open("personal_card.php?id="+id, '_blank').focus()
 }
 
 
