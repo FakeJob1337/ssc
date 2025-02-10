@@ -56,18 +56,18 @@
 <script>
 const submitBtn = document.getElementById('sub');
 submitBtn.onclick = () => {
-  const inputElements = document.querySelectorAll('input')
-  const inputValues = {}
-  inputElements.forEach(input => { inputValues[input.id] = input.value;})
-  $.ajax({
-      type:"POST",
-      url:"php_scripts/add_vacancy.php",
-      data: {data:JSON.stringify(inputValues)},
-      cache: false,
-      success: function(responce){
-      	alert("Добавлено")
-      }
-  })
+    const inputElements = document.querySelectorAll('input')
+    const inputValues = {}
+    inputElements.forEach(input => { inputValues[input.id] = input.value;})
+    $.ajax({
+        type:"POST",
+        url:"php_scripts/add_vacancy.php",
+        data: {data:JSON.stringify(inputValues)},
+        cache: false,
+        success: function(responce){
+        	alert("Добавлено")
+        }
+    })
 }
 
 

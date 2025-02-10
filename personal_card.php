@@ -6,16 +6,26 @@
     <link rel="stylesheet" href="css/style_info.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+     .scroll-container {
+            height: 900px;
+            overflow: auto;
+            margin: 20px;
+            padding: 10px;
+        }
+    </style>
 </head>
-<body>
-<?php
+<body class="min-h-screen">
+<?php 
 
 $id = $_GET['id'];
 
 $conn = new PDO('mysql:host=localhost;dbname=ssc', 'root', 'p@$$word');
-$sql = "SELECT surname, (SELECT SUBSTRING_INDEX(`name`, ' ', 1)), (SELECT SUBSTRING_INDEX(`name`, ' ', -1)), birthday from shtat WHERE id = '$id'";
+$id = $_GET['id'];
+$sql = "SELECT * FROM `shtat` LEFT JOIN `personal_information` ON shtat.id = personal_information.shtat_id WHERE shtat.id = $id";
 $result = $conn->query($sql);
-$row = $result->fetch();
+$row = $result->fetch(); 
 ?>
 
 <div class="container-fluid row h-100">
@@ -27,275 +37,177 @@ $row = $result->fetch();
         <div class="menuhref d-flex align-items-center p-2"><a href="duty.php">График отпусков</a></div>
         <div class="menuhref d-flex align-items-center p-2"><a href="RSZ.php">Расход л/с подразделений</a></div>
         <div class="menuhref d-flex align-items-center p-2"><a href="index.php">Выход</a></div>
-    </div>
+    </div> 
     <div class="content col-10 p-0">
-        <div class="form-group row m-1 align-items-center">
-            <div class="col-2 p-2">
-                <img src="image/mchs.png" id='persImg' width ="120px" class="rounded mx-auto d-block mb-2">
-                <input class="form-control form-control-sm" type="file" id="formFile" accept="image/*">
-                <button type="button" id="uploadBtn" class="btn btn-primary btn-sm">Загрузить</button>
-                <progress id="progressBar" value="0" max="100"></progress>
-            </div>
-            <div class="col-2">
-                <label for="surname">Фамилия:</label>
-                <input type="text" class="form-control" id="surname" readonly value="<?php echo($row[0]); ?>">
-            </div>
-            <div class="col-2">
-                <label for="name">Имя:</label>
-                <input type="text" class="form-control" id="name" readonly value="<?php echo($row[1]); ?>">
-            </div>
-            <div class="col-2">
-                <label for="secname">Отчество:</label>
-                <input type="text" class="form-control" id="secname" readonly value="<?php echo($row[2]); ?>">
-            </div>
-        </div>
-        <div class="form-group row mt-3 m-1">
-            <div class="col-2">
-                <label for="date">Дата рождения:</label>
-                <input type="date" class="form-control datepicker" id="birthday" name="date" readonly value="<?php echo($row[3]); ?>">
-            </div>
-            <div class="col-2">
-                <label for="sex">Пол:</label>
-                <select class='form-select' id='sex'>
-                    <option>М</option>
-                    <option>Ж</option>
-                </select>
-            </div>
-            <div class="col-2">
-                <label for="age">Полных лет:</label>
-                <input type="text" class="form-control" id="age" name="age" readonly>
-            </div>
-            <div class="col-2">
-                <label for="snils">Снилс:</label>
-                <input type="text" class="form-control" name="snils">
-            </div>
-        </div>
-        <div class="form-group row m-1 mt-3">
-            <div class="col-2">
-                <label for="phone1">Телефон 1:</label>
-                <input type="tel" class="form-control" name="phone1">
-            </div>
-            <div class="col-2">
-                <label for="phone2">Телефон 2:</label>
-                <input type="tel" class="form-control" name="phone2">
-            </div>
-        </div>
-        <div class="type mt-3">
-            <button type="button" class="btn btn-secondary" onclick="get_main_info()">Основные данные</button>
-            <button type="button" class="btn btn-secondary" onclick="get_docs()">Документы</button>
-            <button type="button" class="btn btn-secondary" onclick="get_education()">Образование</button>
-            <button type="button" class="btn btn-secondary" onclick="get_ls()">Личная информация</button>
-            <button type="button" class="btn btn-secondary" onclick="get_history()">История</button>
-            <button type="button" class="btn btn-secondary" id="dolj" onclick="getFirstFilter()">Перенос</button>
-            <button type="button" class="btn btn-success" onclick="set_inf()">Добавить остальную информацию</button>
-        </div>
+      <div class="scroll-container">
+      <div class="container mx-auto px-4 py-8">
+          <!-- Карточка профиля -->
+          <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+              <!-- Аватар -->
+              <img src="<?php echo $row['profile_photo'] ?>" alt="Аватар" class="w-32 h-32 rounded-full mx-auto mb-4">
+              <div class="mb-3">
+              </div>
+              <!-- ФИО -->
+              <h1 class="text-2xl font-bold text-gray-800"><?php echo $row['surname']." ".$row['name']; ?></h1>
+              <!-- Должность -->
+              <p class="text-gray-600"><?php echo $row['job'] ?></p>
+              <!-- Социальные сети -->
+              <div class="mt-4 space-x-4">
+                  <a href="#" class="text-blue-500 hover:text-blue-700">Телеграмм</a>
+                  <a href="#" class="text-blue-500 hover:text-blue-700">ВК</a>
+                  <!-- <a href="#" class="text-blue-500 hover:text-blue-700">LinkedIn</a> -->
+              </div>
+              <div>
+                <p id="load" onclick="set_photo()">Загрузить фото профиля</p>
+                <form  method="post" enctype="multipart/form-data" id="imgform">
+                    <input class="form-control" type="file" id="formFile">
+                </form> 
+              </div>
+          </div>
 
-        <div class="bottom">
-          <div class="perenos_t row" id="output2">
-          <footer>
-          </footer>
-        </div>
+          <!-- Основная информация -->
+          <div class="bg-white rounded-lg shadow-lg p-6 mt-6">
+              <h2 class="text-xl font-bold text-gray-800 mb-4">Основная информация</h2>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                      <p class="text-gray-600"><strong>Дата рождения:</strong> <?php echo $row['birthday'] ?></p>
+                      <p class="text-gray-600"><strong>Пол:</strong> <?php echo $row['sex'] ?></p>
+                      <p class="text-gray-600"><strong>Город:</strong> <?php echo $row['place_of_birth'] ?></p>
+                  </div>
+                  <div>
+                      <p class="text-gray-600"><strong>Телефон:</strong> <?php echo $row['telephone_number'] ?></p>
+                      <p class="text-gray-600"><strong>Национальнось:</strong> <?php echo $row['nationality'] ?></p>
+                      <p class="text-gray-600"><strong>Семейное положение:</strong> <?php echo $row['marital_status'] ?></p>
+                  </div>
+              </div>
+          </div>
+
+          <!-- Рабочая информация -->
+          <div class="bg-white rounded-lg shadow-lg p-6 mt-6">
+              <h2 class="text-xl font-bold text-gray-800 mb-4">Рабочая информация</h2>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                        <p class="text-gray-600"><strong>Личный номер:</strong> <?php echo $row['personal_number'] ?></p>
+                        <p class="text-gray-600"><strong>Подразделение:</strong> <?php echo $row['pr2'] ?></p>
+                        <p class="text-gray-600"><strong>Допуск:</strong> <?php echo $row['admission'] ?></p>
+                        <p class="text-gray-600"><strong>В кадровом резерве?:</strong> <?php echo $row['is_talent_pool'] ?></p>
+                        <p class="text-gray-600"><strong>Квалификационное звание:</strong> <?php echo $row['qualification_title'] ?></p>
+                        <p class="text-gray-600"><strong>Дата контракта:</strong> <?php echo $row['contract_date'] ?></p>
+                        <p class="text-gray-600"><strong>Должность:</strong> <?php echo $row['job'] ?></p>
+                        <p class="text-gray-600"><strong>Дата присвоения:</strong> <?php echo $row['job_assignment_date'] ?></p>
+                        <p class="text-gray-600"><strong>Номер приказа:</strong> <?php echo $row['job_order_number'] ?></p>
+                  </div>
+                  <div>
+                        <p class="text-gray-600"><strong>Звание:</strong> <?php echo $row['rank_fact'] ?></p>
+                        <p class="text-gray-600"><strong>Дата присвоения:</strong> <?php echo $row['rank_assignment_date'] ?></p>
+                        <p class="text-gray-600"><strong>Номер приказа:</strong> <?php echo $row['rank_order_number'] ?></p>
+                  </div>
+              </div>
+          </div>
+
+          <!-- Документы -->
+          <div class="bg-white rounded-lg shadow-lg p-6 mt-6">
+              <h2 class="text-xl font-bold text-gray-800 mb-4">Документы</h2>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <p class="text-gray-600"><strong>Паспорт</strong></p>
+                      <p class="text-gray-600"><strong>Серия:</strong> <?php echo $row['passport_series'] ?></p>
+                      <p class="text-gray-600"><strong>Номер:</strong> <?php echo $row['passport_numbers'] ?></p>
+                      <p class="text-gray-600"><strong>Кем выдан:</strong> <?php echo $row['passport_issued_by'] ?></p>
+                      <p class="text-gray-600"><strong>Ксерокопии:</strong> нету</p>
+                    </div>
+                    <div>
+                    <p class="text-gray-600"><strong>Военный билет:</strong> <?php echo $row['military_card'] ?></p>
+                    <p class="text-gray-600"><strong>Ксерокопии:</strong> нету</p>
+                    </div>
+                    <div>
+                    <p class="text-gray-600"><strong>Водительское удостоверение:</strong> <?php echo $row['military_card'] ?></p>
+                    <p class="text-gray-600"><strong>Действителен с:</strong> 01.01.2020</p>
+                    <p class="text-gray-600"><strong>Действителен по:</strong> 01.01.2030</p>
+                    <p class="text-gray-600"><strong>Категории:</strong> B, C</p>
+                    <p class="text-gray-600"><strong>Ксерокопии:</strong> Файл не выбран</p>
+                    </div>
+              </div>
+          </div> 
+
+          <!-- Водительское удостоверение -->
+          <!-- <div class="bg-white rounded-lg shadow-lg p-6 mt-6">
+              <h2 class="text-xl font-bold text-gray-800 mb-4">Водительское удостоверение</h2>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                      <p class="text-gray-600"><strong>Номер:</strong> 1234567890</p>
+                      <p class="text-gray-600"><strong>Действителен с:</strong> 01.01.2020</p>
+                      <p class="text-gray-600"><strong>Действителен по:</strong> 01.01.2030</p>
+                  </div>
+                  <div>
+                      <p class="text-gray-600"><strong>Категории:</strong> B, C</p>
+                      <p class="text-gray-600"><strong>Ксерокопии:</strong> Файл не выбран</p>
+                  </div>
+              </div>
+          </div> -->
+
+          <!-- Образование -->
+          <div class="bg-white rounded-lg shadow-lg p-6 mt-6">
+              <h2 class="text-xl font-bold text-gray-800 mb-4">Образование</h2>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                      <p class="text-gray-600"><strong>Тип образования:</strong><?php echo $row['type_of_education'] ?></p>
+                      <p class="text-gray-600"><strong>Специальность:</strong><?php echo $row['speciality'] ?></p>
+                      <p class="text-gray-600"><strong>Учреждение:</strong><?php echo $row['institution'] ?></p>
+                      <p class="text-gray-600"><strong>Год окончания:</strong><?php echo $row['year_of_graduation'] ?></p>
+                      <p class="text-gray-600"><strong>Ксерокопии:</strong> Файл не выбран</p>
+                      <p class="text-gray-600"><strong>Ученая степень:</strong> <?php echo $row['academic_degree'] ?></p>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <button type="button" onclick="set_inf()" class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">Добавить информацию</button>
     </div>
 </div>
+</div>
+
+
+
+<!-- Подключение Bootstrap JS и зависимостей -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 <script>
-document.querySelector('#age').value = getAge(document.querySelector('#birthday').value);
-
-let url = new URLSearchParams(window.location.search);
-let age = document.querySelector('#age').value;
-let id = url.get('id');
-
-window.sessionStorage.setItem("id", id);
-window.sessionStorage.setItem("age", age);
-    $('#send').click(function(){
-        let Data = $('form').serializeArray();
-        let start = new Date(Data['0']['value']).toISOString().slice(0, 19).replace('T', ' ');
-        let days = Data['1']['value']
-        id = window.sessionStorage.getItem("id");
-        age = window.sessionStorage.getItem("age");
-        $.ajax({
-          type:"POST",
-          url:"php_scripts/set_duty.php",
-          data: {"id": id, "age": age, "start": start, "days": days},
-          cache: false,
-          success: (response) => {
-              alert(response);
-          }
-        })
-    });
-
-
-function set_inf() {  
-  window.open("personal_card.php?id="+id, '_blank').focus()
+function set_inf() { 
+    let searchParams = new URLSearchParams(window.location.search);
+    let id = searchParams.get('id')
+  window.open("personal_info_card_add.php?id="+id, '_blank').focus()
 }
-
-
 function getAge(b){
-  const now = new Date()
+  const now = new Date();
   const date = new Date(b);
   const addOne = now.getMonth() - date.getMonth() >= 0 && now.getDate() - date.getDate() >= 0
   const diff = now.getFullYear() - date.getFullYear()
+  
   return diff - 1 + (addOne ? 1 : 0);
 }
 
-function get_ls(){
-    const url = new URLSearchParams(window.location.search)
-    let a = url.get('id');
-  $.ajax({
-    type:"POST",
-    url:"php_scripts/get_ls.php",
-    data: {"id": a},
-    cache: false,
-    success: function(responce){ 
-      $('div#output2').html(responce);
-    }
-  }) 
-}
-
-  function del(){
-    const url = new URLSearchParams(window.location.search)
-        let a = url.get('id');
+function set_photo() {  
+    let searchParams = new URLSearchParams(window.location.search);
+    let id = searchParams.get('id')
+    document.cookie = "id=" + id
+    let inp= document.getElementById("formFile")
+    let files = inp.files;
+    let datas = new FormData()
+    let file =files[0]
+    datas.append('photo', file, file.name)
     $.ajax({
-      type:"POST",
-      url:"php_scripts/delete.php",
-      data:{"id":a},
-      cache: false,
-      success: function(){
-        alert('Сотрудник удален');
-      }
-    })
-  }
-
-  function get_history(){
-    const url = new URLSearchParams(window.location.search)
-    let a = url.get('id');
-    $.ajax({
-      type:"POST",
-      url:"php_scripts/personal_card_history_select.php",
-      data: {"id":a},
-      cache: false,
-      success: function(responce){ 
-        $('div#output2').html(responce);
-      }
-    })
-  }
-
-function get_main_info(){
-  const url = new URLSearchParams(window.location.search)
-  let a = url.get('id');
-  $.ajax({
-    type:"POST",
-    url:"php_scripts/personal_card_main_info_select.php",
-    data: {"id":a},
-    cache: false,
-    success: function(responce){ 
-      $('div#output2').html(responce);
-    }
-  })
-}
-
-      function get_docs(){
-        const url = new URLSearchParams(window.location.search)
-        let a = url.get('id');
-            $.ajax({
-              type:"POST",
-              url:"php_scripts/personal_card_docs_select.php",
-              data: {"id":a},
-              cache: false,
-              success: function(responce){
-                $('div#output2').html(responce);
-              }
-            })
-          }
-
-      function get_education(){
-        const url = new URLSearchParams(window.location.search)
-        let a = url.get('id');
-            $.ajax({
-              type:"POST",
-              url:"php_scripts/personal_card_education_select.php",
-              data: {"id":a},
-              cache: false,
-              success: function(responce){ 
-
-                $('div#output2').html(responce);
-              }
-            })
-          }
-  
-function perenos(idFromBtn){
-  const url = new URLSearchParams(window.location.search)
-  let a = url.get('id');
-  $.ajax({
-    type:"POST",
-    url:"php_scripts/perenos.php",
-    data: {"idFromBtn":idFromBtn,"idFromCard":a},
-    cache: false,
-    success: function(responce){
-      alert('Перенос прошел успешно');
-      location.reload();
-    }
-  })
-
-}
-
-  function delet(id){
-    $.ajax({
-      type:"POST",
-      url:"php_scripts/delete_work_history.php",
-      data: {"id":id},
-      cache: false,
-      success: function(responce){ 
-        get_history();
-      }
-    })
-  }
-
-
-function getFirstFilter() {
-  $.ajax({
-      type:"POST",
-      url:"php_scripts/filters.php",
-      data: {"selectId":'pr2'},
-      cache: false,
-      success: function(responce){ 
-        $('div#output2').html(responce);
-      }
+        type:"POST",
+        url:"php_scripts/set_photo.php",
+        data: datas,
+        cache: false,
+        contentType : false,
+        processData: false,
+        success: function(responce){ 
+            alert('resp');
+        }
     })
 }
 
-function getNextFilter(selectId) {
-  let selectValue = [];
-  $('.selectFilter').each(function(){
-    selectValue.push($(this).val());
-  });
-  let lastChar = Number(selectId.substr(selectId.length - 1)) + 1;
-  selectIdNext = selectId.substring(0, selectId.length-1) + lastChar;
-  for(let i = Number(selectId.substr(selectId.length - 1)) + 1; i <= 5; i++){
-    $('#pr'+i).remove();
-  }
-  $.ajax({
-      type:"POST",
-      url:"php_scripts/filters.php",
-      data: {"selectId": selectIdNext, "selectValue[]": selectValue},
-      cache: false,
-      success: function(responce){ 
-        $('div#output2').append(responce);
-        selectPersonal(selectId,selectValue);
-      }
-    })
-}
-
-function selectPersonal(selectId,selectValue){
-  $.ajax({
-      type:"POST",
-      url:"php_scripts/select_personal_for_perenos.php",
-      data: {"selectId": selectId, "selectValue[]": selectValue},
-      cache: false,
-      success: function(responce){ 
-        $('table#output').html(responce);
-      }
-    })
-}
 </script>
 
 </body>

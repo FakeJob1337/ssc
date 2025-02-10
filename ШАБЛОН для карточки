@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль пользователя</title>
+    <!-- Подключение Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Карточка профиля -->
+        <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+            <!-- Аватар -->
+            <img src="https://via.placeholder.com/150" alt="Аватар" class="w-32 h-32 rounded-full mx-auto mb-4">
+            <!-- ФИО -->
+            <h1 class="text-2xl font-bold text-gray-800">Иванов Иван Иванович</h1>
+            <!-- Должность -->
+            <p class="text-gray-600">Инженер-программист</p>
+            <!-- Социальные сети -->
+            <div class="mt-4 space-x-4">
+                <a href="#" class="text-blue-500 hover:text-blue-700">Facebook</a>
+                <a href="#" class="text-blue-500 hover:text-blue-700">Twitter</a>
+                <a href="#" class="text-blue-500 hover:text-blue-700">LinkedIn</a>
+            </div>
+        </div>
+
+        <!-- Основная информация -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mt-6">
+            <h2 class="text-xl font-bold text-gray-800 mb-4">Основная информация</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <p class="text-gray-600"><strong>Дата рождения:</strong> 01.01.1990</p>
+                    <p class="text-gray-600"><strong>Пол:</strong> Мужской</p>
+                    <p class="text-gray-600"><strong>Город:</strong> Москва</p>
+                </div>
+                <div>
+                    <p class="text-gray-600"><strong>Телефон:</strong> +7 (999) 123-45-67</p>
+                    <p class="text-gray-600"><strong>Email:</strong> ivanov@example.com</p>
+                    <p class="text-gray-600"><strong>СНИЛС:</strong> 123-456-789 00</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Рабочая информация -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mt-6">
+            <h2 class="text-xl font-bold text-gray-800 mb-4">Рабочая информация</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <p class="text-gray-600"><strong>Подразделение:</strong> Отдел разработки</p>
+                    <p class="text-gray-600"><strong>Должность:</strong> Инженер-программист</p>
+                </div>
+                <div>
+                    <p class="text-gray-600"><strong>Дата приема:</strong> 01.01.2020</p>
+                    <p class="text-gray-600"><strong>Номер приказа:</strong> 123-456</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Паспортные данные -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mt-6">
+            <h2 class="text-xl font-bold text-gray-800 mb-4">Паспортные данные</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <p class="text-gray-600"><strong>Серия:</strong> 1234</p>
+                    <p class="text-gray-600"><strong>Номер:</strong> 567890</p>
+                </div>
+                <div>
+                    <p class="text-gray-600"><strong>Ксерокопии:</strong> Файл не выбран</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Водительское удостоверение -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mt-6">
+            <h2 class="text-xl font-bold text-gray-800 mb-4">Водительское удостоверение</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <p class="text-gray-600"><strong>Номер:</strong> 1234567890</p>
+                    <p class="text-gray-600"><strong>Действителен с:</strong> 01.01.2020</p>
+                    <p class="text-gray-600"><strong>Действителен по:</strong> 01.01.2030</p>
+                </div>
+                <div>
+                    <p class="text-gray-600"><strong>Категории:</strong> B, C</p>
+                    <p class="text-gray-600"><strong>Ксерокопии:</strong> Файл не выбран</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Образование -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mt-6">
+            <h2 class="text-xl font-bold text-gray-800 mb-4">Образование</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <p class="text-gray-600"><strong>Специальность:</strong> Программное обеспечение</p>
+                    <p class="text-gray-600"><strong>Учреждение:</strong> МГУ</p>
+                </div>
+                <div>
+                    <p class="text-gray-600"><strong>Год окончания:</strong> 2015</p>
+                    <p class="text-gray-600"><strong>Ксерокопии:</strong> Файл не выбран</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль сотрудника МЧС</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Кастомные цвета МЧС */
+        .mchs-blue { color: #0053a0; }
+        .bg-mchs-blue { background-color: #0053a0; }
+        .border-mchs-blue { border-color: #0053a0; }
+        
+        .mchs-red { color: #ff0000; }
+        .bg-mchs-red { background-color: #ff0000; }
+        
+        /* Фоновое изображение */
+        body {
+            background-image: url('https://example.com/mchs-bg.jpg'); /* Добавьте свою ссылку */
+            background-size: cover;
+            background-attachment: fixed;
+        }
+        
+        /* Карточки с полупрозрачностью */
+        .profile-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- Основная карточка -->
+        <div class="profile-card rounded-xl shadow-2xl p-8 mb-8 border-2 border-mchs-blue">
+            <!-- Заголовок с красным акцентом -->
+            <div class="bg-mchs-red rounded-t-xl -m-8 mb-8 p-4">
+                <h1 class="text-3xl font-bold text-white text-center">
+                    СЛУЖЕБНЫЙ ПРОФИЛЬ
+                </h1>
+            </div>
+
+            <!-- Аватар и ФИО -->
+            <div class="text-center mb-8">
+                <img src="https://via.placeholder.com/150" 
+                     class="w-32 h-32 rounded-full border-4 border-mchs-blue mx-auto mb-4">
+                <h2 class="text-2xl font-bold mchs-blue">
+                    ИВАНОВ ИВАН ИВАНОВИЧ
+                </h2>
+                <p class="text-lg mchs-red font-semibold">
+                    Старший спасатель
+                </p>
+            </div>
+
+            <!-- Информационные секции -->
+            <div class="grid gap-6 md:grid-cols-2">
+                <!-- Левая колонка -->
+                <div class="space-y-4">
+                    <div class="p-4 border-l-4 border-mchs-red bg-blue-50">
+                        <h3 class="font-bold mchs-blue mb-2">Личные данные</h3>
+                        <p><span class="mchs-red">▶</span> Дата рождения: 15.03.1985</p>
+                        <p><span class="mchs-red">▶</span> СНИЛС: 123-456-789 01</p>
+                    </div>
+
+                    <div class="p-4 border-l-4 border-mchs-red bg-blue-50">
+                        <h3 class="font-bold mchs-blue mb-2">Паспорт</h3>
+                        <p><span class="mchs-red">▶</span> Серия: 4510</p>
+                        <p><span class="mchs-red">▶</span> Номер: 123456</p>
+                    </div>
+                </div>
+
+                <!-- Правая колонка -->
+                <div class="space-y-4">
+                    <div class="p-4 border-l-4 border-mchs-red bg-blue-50">
+                        <h3 class="font-bold mchs-blue mb-2">Служебная информация</h3>
+                        <p><span class="mchs-red">▶</span> Подразделение: Спасательный отряд №5</p>
+                        <p><span class="mchs-red">▶</span> Дата назначения: 01.09.2015</p>
+                    </div>
+
+                    <div class="p-4 border-l-4 border-mchs-red bg-blue-50">
+                        <h3 class="font-bold mchs-blue mb-2">Водительское удостоверение</h3>
+                        <p><span class="mchs-red">▶</span> Номер: 1234567890</p>
+                        <p><span class="mchs-red">▶</span> Категории: B, C</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Красная полоса внизу -->
+            <div class="bg-mchs-red rounded-b-xl -m-8 mt-8 p-2">
+                <p class="text-white text-center text-sm">
+                    МЧС России - Спасение. Пре. Спасение.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

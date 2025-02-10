@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль сотрудника МЧС</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Кастомные цвета МЧС */
+        .mchs-blue { color: #0053a0; }
+        .bg-mchs-blue { background-color: #0053a0; }
+        .border-mchs-blue { border-color: #0053a0; }
+        
+        .mchs-red { color: #ff0000; }
+        .bg-mchs-red { background-color: #ff0000; }
+        
+        /* Фоновое изображение */
+        body {
+            background-image: url('https://example.com/mchs-bg.jpg'); /* Добавьте свою ссылку */
+            background-size: cover;
+            background-attachment: fixed;
+        }
+        
+        /* Карточки с полупрозрачностью */
+        .profile-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- Основная карточка -->
+        <div class="profile-card rounded-xl shadow-2xl p-8 mb-8 border-2 border-mchs-blue">
+            <!-- Заголовок с красным акцентом -->
+            <div class="bg-mchs-red rounded-t-xl -m-8 mb-8 p-4">
+                <h1 class="text-3xl font-bold text-white text-center">
+                    СЛУЖЕБНЫЙ ПРОФИЛЬ
+                </h1>
+            </div>
+
+            <!-- Аватар и ФИО -->
+            <div class="text-center mb-8">
+                <img src="https://via.placeholder.com/150" 
+                     class="w-32 h-32 rounded-full border-4 border-mchs-blue mx-auto mb-4">
+                <h2 class="text-2xl font-bold mchs-blue">
+                    ИВАНОВ ИВАН ИВАНОВИЧ
+                </h2>
+                <p class="text-lg mchs-red font-semibold">
+                    Старший спасатель
+                </p>
+            </div>
+
+            <!-- Информационные секции -->
+            <div class="grid gap-6 md:grid-cols-2">
+                <!-- Левая колонка -->
+                <div class="space-y-4">
+                    <div class="p-4 border-l-4 border-mchs-red bg-blue-50">
+                        <h3 class="font-bold mchs-blue mb-2">Личные данные</h3>
+                        <p><span class="mchs-red">▶</span> Дата рождения: 15.03.1985</p>
+                        <p><span class="mchs-red">▶</span> СНИЛС: 123-456-789 01</p>
+                    </div>
+
+                    <div class="p-4 border-l-4 border-mchs-red bg-blue-50">
+                        <h3 class="font-bold mchs-blue mb-2">Паспорт</h3>
+                        <p><span class="mchs-red">▶</span> Серия: 4510</p>
+                        <p><span class="mchs-red">▶</span> Номер: 123456</p>
+                    </div>
+                </div>
+
+                <!-- Правая колонка -->
+                <div class="space-y-4">
+                    <div class="p-4 border-l-4 border-mchs-red bg-blue-50">
+                        <h3 class="font-bold mchs-blue mb-2">Служебная информация</h3>
+                        <p><span class="mchs-red">▶</span> Подразделение: Спасательный отряд №5</p>
+                        <p><span class="mchs-red">▶</span> Дата назначения: 01.09.2015</p>
+                    </div>
+
+                    <div class="p-4 border-l-4 border-mchs-red bg-blue-50">
+                        <h3 class="font-bold mchs-blue mb-2">Водительское удостоверение</h3>
+                        <p><span class="mchs-red">▶</span> Номер: 1234567890</p>
+                        <p><span class="mchs-red">▶</span> Категории: B, C</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Красная полоса внизу -->
+            <div class="bg-mchs-red rounded-b-xl -m-8 mt-8 p-2">
+                <p class="text-white text-center text-sm">
+                    МЧС России - Спасение. Пре. Спасение.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
