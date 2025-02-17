@@ -117,6 +117,22 @@ $row = $result->fetch();
                 <label for="military_card">Военный билет</label>
                 <input type="text" class="form-control" id="military_card" value="">
             </div>
+            <div class="col-2">
+                <label for="drivers_license">Номер водительского удостоверения</label>
+                <input type="text" class="form-control" id="military_card" value="">
+            </div>
+            <div class="col-2">
+                <label for="drivers_license_sdate">Водительское действительно с</label>
+                <input type="date" class="form-control" id="military_card" value="">
+            </div>
+            <div class="col-2">
+                <label for="drivers_license_edate">Водительское действительно до</label>
+                <input type="date" class="form-control" id="military_card" value="">
+            </div>
+            <div class="col-2">
+                <label for="drivers_license_categories">Категории на транспорт</label>
+                <input type="text" class="form-control" id="military_card" value="">
+            </div>
 
             <div>
                 <h2>Образование и квалификация</h2>

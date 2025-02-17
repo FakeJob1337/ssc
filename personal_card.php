@@ -19,8 +19,9 @@
 <body class="min-h-screen">
 <?php 
 
-$id = $_GET['id'];
 
+
+$id = $_GET['id'];
 $conn = new PDO('mysql:host=localhost;dbname=ssc', 'root', 'p@$$word');
 $id = $_GET['id'];
 $sql = "SELECT * FROM `shtat` LEFT JOIN `personal_information` ON shtat.id = personal_information.shtat_id WHERE shtat.id = $id";
@@ -44,7 +45,9 @@ $row = $result->fetch();
           <!-- Карточка профиля -->
           <div class="bg-white rounded-lg shadow-lg p-6 text-center">
               <!-- Аватар -->
-              <img src="<?php echo $row['profile_photo'] ?>" alt="Аватар" class="w-32 h-32 rounded-full mx-auto mb-4">
+              <a data-fslightbox="profile_photo" href="<?php echo $row['profile_photo'] ?>">
+                <img src="<?php echo $row['profile_photo'] ?>" alt="Аватар" class="w-32 h-32 rounded-full mx-auto mb-4">
+              </a>
               <div class="mb-3">
               </div>
               <!-- ФИО -->
@@ -58,10 +61,8 @@ $row = $result->fetch();
                   <!-- <a href="#" class="text-blue-500 hover:text-blue-700">LinkedIn</a> -->
               </div>
               <div>
-                <p id="load" onclick="set_photo()">Загрузить фото профиля</p>
-                <form  method="post" enctype="multipart/form-data" id="imgform">
-                    <input class="form-control" type="file" id="formFile">
-                </form> 
+                <p id="load">Загрузить фото профиля</p>
+                    <input class="form-control" type="file" id="profile_photo" onchange="set_photo(this)">
               </div>
           </div>
 
@@ -72,7 +73,7 @@ $row = $result->fetch();
                   <div>
                       <p class="text-gray-600"><strong>Дата рождения:</strong> <?php echo $row['birthday'] ?></p>
                       <p class="text-gray-600"><strong>Пол:</strong> <?php echo $row['sex'] ?></p>
-                      <p class="text-gray-600"><strong>Город:</strong> <?php echo $row['place_of_birth'] ?></p>
+                      <p class="text-gray-600"><strong>Место рождения:</strong> <?php echo $row['place_of_birth'] ?></p>
                   </div>
                   <div>
                       <p class="text-gray-600"><strong>Телефон:</strong> <?php echo $row['telephone_number'] ?></p>
@@ -114,38 +115,36 @@ $row = $result->fetch();
                       <p class="text-gray-600"><strong>Серия:</strong> <?php echo $row['passport_series'] ?></p>
                       <p class="text-gray-600"><strong>Номер:</strong> <?php echo $row['passport_numbers'] ?></p>
                       <p class="text-gray-600"><strong>Кем выдан:</strong> <?php echo $row['passport_issued_by'] ?></p>
-                      <p class="text-gray-600"><strong>Ксерокопии:</strong> нету</p>
+                      <p class="text-gray-600"><strong>Ксерокопия:</strong> 
+                        <a data-fslightbox="passport_photo" href="<?php echo $row['passport_photo'] ?>">
+                            <img src="<?php echo $row['passport_photo'] ?>" alt="Аватар" class="w-32 h-32 mx-auto mb-4">
+                        </a>
+                      </p>
+                    <input class="form-control" type="file" id="passport_photo" onchange="set_photo(this)">
                     </div>
                     <div>
                     <p class="text-gray-600"><strong>Военный билет:</strong> <?php echo $row['military_card'] ?></p>
-                    <p class="text-gray-600"><strong>Ксерокопии:</strong> нету</p>
+                    <p class="text-gray-600"><strong>Ксерокопии:</strong> 
+                        <a data-fslightbox="military_card_photo" href="<?php echo $row['military_card_photo'] ?>">
+                            <img src="<?php echo $row['military_card_photo'] ?>" alt="Аватар" class="w-32 h-32 mx-auto mb-4">
+                        </a>
+                    </p>
+                    <input class="form-control" type="file" id="military_card_photo" onchange="set_photo(this)"> 
                     </div>
                     <div>
-                    <p class="text-gray-600"><strong>Водительское удостоверение:</strong> <?php echo $row['military_card'] ?></p>
-                    <p class="text-gray-600"><strong>Действителен с:</strong> 01.01.2020</p>
-                    <p class="text-gray-600"><strong>Действителен по:</strong> 01.01.2030</p>
-                    <p class="text-gray-600"><strong>Категории:</strong> B, C</p>
-                    <p class="text-gray-600"><strong>Ксерокопии:</strong> Файл не выбран</p>
+                    <p class="text-gray-600"><strong>Водительское удостоверение:</strong> <?php echo $row['drivers_license'] ?></p>
+                    <p class="text-gray-600"><strong>Действителен с:</strong> <?php echo $row['drivers_license_sdate'] ?></p>
+                    <p class="text-gray-600"><strong>Действителен по:</strong> <?php echo $row['drivers_license_edate'] ?></p>
+                    <p class="text-gray-600"><strong>Категории:</strong> <?php echo $row['drivers_license_categories'] ?></p>
+                    <p class="text-gray-600"><strong>Ксерокопии:</strong> 
+                        <a data-fslightbox="drivers_license_photo" href="<?php echo $row['drivers_license_photo'] ?>">
+                            <img src="<?php echo $row['drivers_license_photo'] ?>" alt="Аватар" class="w-32 h-32 mx-auto mb-4">
+                        </a>
+                    </p>
+                    <input class="form-control" type="file" id="drivers_license_photo" onchange="set_photo(this)">
                     </div>
               </div>
           </div> 
-
-          <!-- Водительское удостоверение -->
-          <!-- <div class="bg-white rounded-lg shadow-lg p-6 mt-6">
-              <h2 class="text-xl font-bold text-gray-800 mb-4">Водительское удостоверение</h2>
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                      <p class="text-gray-600"><strong>Номер:</strong> 1234567890</p>
-                      <p class="text-gray-600"><strong>Действителен с:</strong> 01.01.2020</p>
-                      <p class="text-gray-600"><strong>Действителен по:</strong> 01.01.2030</p>
-                  </div>
-                  <div>
-                      <p class="text-gray-600"><strong>Категории:</strong> B, C</p>
-                      <p class="text-gray-600"><strong>Ксерокопии:</strong> Файл не выбран</p>
-                  </div>
-              </div>
-          </div> -->
-
           <!-- Образование -->
           <div class="bg-white rounded-lg shadow-lg p-6 mt-6">
               <h2 class="text-xl font-bold text-gray-800 mb-4">Образование</h2>
@@ -155,13 +154,21 @@ $row = $result->fetch();
                       <p class="text-gray-600"><strong>Специальность:</strong><?php echo $row['speciality'] ?></p>
                       <p class="text-gray-600"><strong>Учреждение:</strong><?php echo $row['institution'] ?></p>
                       <p class="text-gray-600"><strong>Год окончания:</strong><?php echo $row['year_of_graduation'] ?></p>
-                      <p class="text-gray-600"><strong>Ксерокопии:</strong> Файл не выбран</p>
                       <p class="text-gray-600"><strong>Ученая степень:</strong> <?php echo $row['academic_degree'] ?></p>
+                      <p class="text-gray-600"><strong>Ксерокопии:</strong><p class="text-gray-600"><strong>Ксерокопии:</strong> 
+                        <a data-fslightbox="diploma_photo" href="<?php echo $row['diploma_photo'] ?>">
+                            <img src="<?php echo $row['diploma_photo'] ?>" alt="Аватар" class="w-32 h-32 mx-auto mb-4">
+                        </a>
+                      </p>
+                      <input class="form-control" type="file" id="diploma_photo" onchange="set_photo(this)">
                   </div>
               </div>
           </div>
       </div>
-      <button type="button" onclick="set_inf()" class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">Добавить информацию</button>
+      <button type="button" onclick="set_inf()" class="btn btn-blue">Добавить информацию</button>
+      <button type="button" onclick="" class="btn btn-blue">Добавить образование</button>
+      <button type="button" onclick="" class="btn btn-blue">Добавить семейное положение</button>
+      <button type="button" onclick="" class="btn btn-blue">Добавить семейное положение</button>
     </div>
 </div>
 </div>
@@ -186,18 +193,22 @@ function getAge(b){
   return diff - 1 + (addOne ? 1 : 0);
 }
 
-function set_photo() {  
+
+
+
+function set_photo(f) {  
     let searchParams = new URLSearchParams(window.location.search);
     let id = searchParams.get('id')
     document.cookie = "id=" + id
-    let inp= document.getElementById("formFile")
+    document.cookie = "col=" + f.id
+    let inp = f
     let files = inp.files;
     let datas = new FormData()
     let file =files[0]
     datas.append('photo', file, file.name)
     $.ajax({
         type:"POST",
-        url:"php_scripts/set_photo.php",
+        url:"php_scripts/set_profile_photo.php",
         data: datas,
         cache: false,
         contentType : false,
@@ -209,6 +220,6 @@ function set_photo() {
 }
 
 </script>
-
+<script src="fslightbox.js"></script>
 </body>
 </html>

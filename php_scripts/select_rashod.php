@@ -384,7 +384,7 @@ foreach ($data_array as $key => $value) {
 	echo	'<td rowspan="2" class="ans">'.$value['mission']['Всего'].'</td>';
 	echo	'<td rowspan="2" class="ans">'.$value['mission']['Ж'].'</td>';
 	echo	'<td rowspan="2" class="ans">'.$value['layoff']['Всего'].'</td>';
-	echo	'<td rowspan="2" class="ans">'. $value['spisok']['Всего'] / $value['shtat']['Всего'] * 100 .'</td>';
+	echo	'<td rowspan="2" class="ans">'. round($value['spisok']['Всего'] / $value['shtat']['Всего'] * 100, 2).'</td>';
 	echo'</tr>';
 	echo'<tr>';
 	echo	'<td colspan="2" class="ans">'.$value['trip']['surnames'].'</td>';
@@ -417,7 +417,7 @@ echo '<tr>';
 	echo '<td rowspan="2">'. $military_array["contractor"]["mission"]['Всего'].'</td>';
 	echo '<td rowspan="2">'. $military_array["contractor"]["mission"]['Ж'].'</td>';
 	echo '<td rowspan="2">'. $military_array["contractor"]["layoff"]['Всего'].'</td>';
-	echo '<td rowspan="4">'. ($military_array['contractor']['spisok']['Всего'] + $military_array['conscripts']['spisok']['Всего']) / $military_array["conscripts"]["shtat"]['Всего'] * 100 .'</td>';
+	echo '<td rowspan="4">'. round(($military_array['contractor']['spisok']['Всего'] + $military_array['conscripts']['spisok']['Всего']) / $military_array["conscripts"]["shtat"]['Всего'] * 100, 2) .'</td>';
 echo '</tr>';
 echo '<tr>';
 	echo '<td colspan="2">'. $military_array["contractor"]["trip"]['surnames'].'</td>';
@@ -489,7 +489,7 @@ echo'<tr>';
 	echo'<td>'.$g_reasons['mission']['Всего'].'</td>';
 	echo'<td>'.$g_reasons['mission']['Ж'].'</td>';
 	echo'<td>'.$g_reasons['layoff']['Всего'].'</td>';
-	echo'<td>'.$data_array['g_spisok']['Всего'] / $data_array["g_shtat"] * 100 .'</td>';
+	echo'<td>'.round($data_array['g_spisok']['Всего'] / $data_array["g_shtat"] * 100, 2).'</td>';
 echo'</tr>';
 
 

@@ -83,6 +83,7 @@
 				</div>
 			</div>
 			<button class="btn btn-secondary btn-sm" onclick="get_pers()">Сформировать</button>
+			<button class="btn btn-secondary btn-sm" id="search">Расширенный поиск</button>
 		</div>
 
 		<div class="content mt-3">
@@ -121,6 +122,9 @@ $("#add_people").on( "click", function() {
 
 $("#add_vacancy").on( "click", function() {
   window.location.href = "vacancy_card_add.php";
+} );
+$("#search").on( "click", function() {
+  window.location.href = "search.php";
 } );
 
 

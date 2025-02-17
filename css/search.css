@@ -1,0 +1,5 @@
+.table{
+    overflow: scroll;
+    max-width: 95dvw;
+    max-height: 95dvh;
+}
