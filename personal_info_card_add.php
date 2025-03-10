@@ -50,9 +50,12 @@ $row = $result->fetch();
                 <input type="text" class="form-control" id="rank_order_number" value="">
             </div>
             <div class="col-2">
-                <label for="contract_date">Дата контракта (начало и конец)</label>
-                <input type="text" class="form-control" id="contract_date" placeholder="dd-mm-yyyy,dd-mm-yyyy" value="">
-                
+                <label for="contract_date_start">Дата контракта (начало) </label>
+                <input type="date" class="form-control" id="contract_date_start" placeholder="" value="">
+            </div>
+            <div class="col-2">
+                <label for="contract_date_end">Дата контракта (конец)</label>
+                <input type="date" class="form-control" id="contract_date_end" placeholder="" value="">
             </div>
             <div class="col-2">
                 <label for="qualification_title">Квалификационное звание</label>
@@ -87,10 +90,6 @@ $row = $result->fetch();
                 <input type="text" class="form-control" id="nationality" value="">
             </div>
             <div class="col-2">
-                <label for="marital_status">Семейное положение</label>
-                <input type="text" class="form-control" id="marital_status" value="">
-            </div>
-            <div class="col-2">
                 <label for="telephone_number">Номер телефона</label>
                 <input type="text" class="form-control" id="telephone_number" value="">
             </div>
@@ -114,53 +113,36 @@ $row = $result->fetch();
                 <input type="text" class="form-control" id="passport_issued_by" value="">
             </div>
             <div class="col-2">
+                <label for="passport_date">Когда выдан паспорт</label>
+                <input type="date" class="form-control" id="passport_date" value="">
+            </div>
+            <div class="col-2">
+                <label for="passport_unit _code">Код подразделения</label>
+                <input type="text" class="form-control" id="passport_unit _code" value="">
+            </div>
+
+            <div class="col-2">
                 <label for="military_card">Военный билет</label>
                 <input type="text" class="form-control" id="military_card" value="">
             </div>
             <div class="col-2">
                 <label for="drivers_license">Номер водительского удостоверения</label>
-                <input type="text" class="form-control" id="military_card" value="">
+                <input type="text" class="form-control" id="drivers_license" value="">
             </div>
             <div class="col-2">
                 <label for="drivers_license_sdate">Водительское действительно с</label>
-                <input type="date" class="form-control" id="military_card" value="">
+                <input type="date" class="form-control" id="drivers_license_sdate" value="">
             </div>
             <div class="col-2">
                 <label for="drivers_license_edate">Водительское действительно до</label>
-                <input type="date" class="form-control" id="military_card" value="">
+                <input type="date" class="form-control" id="drivers_license_edate" value="">
             </div>
             <div class="col-2">
                 <label for="drivers_license_categories">Категории на транспорт</label>
-                <input type="text" class="form-control" id="military_card" value="">
+                <input type="text" class="form-control" id="drivers_license_categories" value="">
             </div>
-
             <div>
-                <h2>Образование и квалификация</h2>
-            </div>
-            <div class="col-2">
-                <label for="speciality">Специальность</label>
-                <input type="text" class="form-control" id="speciality" value="">
-            </div>
-            <div class="col-2">
-                <label for="institution">Учреждение</label>
-                <input type="text" class="form-control" id="institution" value="">
-            </div>
-            <div class="col-2">
-                <label for="academic_degree">Ученая степень</label>
-                <input type="text" class="form-control" id="academic_degree" value="">
-            </div>
-            <div class="col-2">
-                <label for="year_of_graduation">Год окончания обучения</label>
-                <input type="date" class="form-control" id="year_of_graduation" value="">
-            </div>
-            <div class="col-2">
-                <label for="type_of_education">Вид образования</label>
-                <input type="text" class="form-control" id="type_of_education" value="">
-            </div>
-            <div class=>
-                <button type="button" class="btn btn-primary" id="add">Добавить</button>
-            </div>
-<!--        
+<!--  
             <div>
                 <h2>История работы</h2>
             </div>
@@ -169,12 +151,15 @@ $row = $result->fetch();
                 <input type="text" class="form-control" id="history_of_work" value="">
             </div> -->
         </div>
+        <div class="col-6 p-1">
+        <button type="button" class="btn btn-primary" id="add_to_db">Добавить</button>
+        </div>
           <footer>
           </footer>
         </div>
     </div>
 <script>
-const submitBtn = document.getElementById('add');
+const submitBtn = document.getElementById('add_to_db');
 submitBtn.onclick = () => {
     const inputElements = document.querySelectorAll('input')
     const inputValues = {}

@@ -70,14 +70,47 @@
 							'drivers_license_categories' => 'Водительское удостоверение категории',
 							'contract_date_start' => 'Дата начала контракта',
 							'contract_date_end' => 'Дата конца контракта',
+							'abroad_date' => 'Дата за границей',
+							'abroad_place' => 'Страна пребывания',
+							'abroad_purpose	' => 'Цель прибытия в страну	',
+							'relation' => 'Кем является(семья)?',
+							'information' => 'Информация о члене семьи',
+							'operation_date' => 'Год миссии',
+							'operation_purpose' => 'Цель миссии',
+							'operation_place' => 'Место проведения миссий',
 						];
 						$conn = new PDO('mysql:host=localhost;dbname=ssc', 'root', 'p@$$word');
-						$sql = "SELECT * FROM `shtat` LEFT JOIN `personal_information` ON shtat.id = personal_information.shtat_id";
+						$sql = "SELECT * \n"
+
+    . "FROM `shtat` \n"
+
+    . "LEFT JOIN `personal_information` \n"
+
+    . "ON shtat.id = personal_information.shtat_id \n"
+
+    . "LEFT JOIN `abroad`\n"
+
+    . "ON shtat.id = abroad.shtat_id\n"
+
+    . "LEFT JOIN `education`\n"
+
+    . "ON shtat.id = education.shtat_id \n"
+
+    . "LEFT JOIN `marital_status`\n"
+
+    . "ON shtat.id = marital_status.shtat_id\n"
+
+    . "LEFT JOIN `participation_in_operations`\n"
+
+    . "ON shtat.id = participation_in_operations.shtat_id;";
 						$result = $conn->query($sql);
 						$row = $result->fetch(PDO::FETCH_ASSOC);
 						
 						foreach ($row as $key => $value) {
 							$ru_value = $translator[$key];
+							if (!$ru_value) {
+								continue;
+							}
 							if (stristr($_SESSION['status'],"admin")) {
 								echo "<label><input type='checkbox' name='column' value='$key' class ='col'>$ru_value</label>";
 								continue;
@@ -99,11 +132,36 @@
 					<label><input disabled type='checkbox' name='column' class="all"><b>Выбрать все</b></label>
 					<?php  
 						$conn = new PDO('mysql:host=localhost;dbname=ssc', 'root', 'p@$$word');
-						$sql = "SELECT * FROM `shtat` LEFT JOIN `personal_information` ON shtat.id = personal_information.shtat_id";
+						$sql = "SELECT * \n"
+
+    . "FROM `shtat` \n"
+
+    . "LEFT JOIN `personal_information` \n"
+
+    . "ON shtat.id = personal_information.shtat_id \n"
+
+    . "LEFT JOIN `abroad`\n"
+
+    . "ON shtat.id = abroad.shtat_id\n"
+
+    . "LEFT JOIN `education`\n"
+
+    . "ON shtat.id = education.shtat_id \n"
+
+    . "LEFT JOIN `marital_status`\n"
+
+    . "ON shtat.id = marital_status.shtat_id\n"
+
+    . "LEFT JOIN `participation_in_operations`\n"
+
+    . "ON shtat.id = participation_in_operations.shtat_id;";
 						$result = $conn->query($sql);
 						$row = $result->fetch(PDO::FETCH_ASSOC);
 						foreach ($row as $key => $value) {
 							$ru_value = $translator[$key];
+							if (!$ru_value) {
+								continue;
+							}
 							if (stristr($_SESSION['status'],"admin")) {
 								echo "<label><input type='checkbox' name='filter' value='$key' class='filter' id='$key'>$ru_value</label>";
 								continue;
@@ -119,7 +177,7 @@
 			</div>
 			<button class="btn btn-secondary btn-sm" onclick="filter()">Сформировать</button>
 			<div class="filterFields"></div>
-			<div class="table">
+			<div class="table" style="max-height: 90vh;">
 				<table id="output">
 
 				</table>

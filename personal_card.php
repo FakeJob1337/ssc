@@ -6,7 +6,8 @@
     <link rel="stylesheet" href="css/style_info.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" type="text/css" href="css/all-tailwind-classes-full-min.css">
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
     <style>
      .scroll-container {
             height: 900px;
@@ -23,7 +24,6 @@
 
 $id = $_GET['id'];
 $conn = new PDO('mysql:host=localhost;dbname=ssc', 'root', 'p@$$word');
-$id = $_GET['id'];
 $sql = "SELECT * FROM `shtat` LEFT JOIN `personal_information` ON shtat.id = personal_information.shtat_id WHERE shtat.id = $id";
 $result = $conn->query($sql);
 $row = $result->fetch(); 
@@ -56,9 +56,9 @@ $row = $result->fetch();
               <p class="text-gray-600"><?php echo $row['job'] ?></p>
               <!-- Социальные сети -->
               <div class="mt-4 space-x-4">
-                  <a href="#" class="text-blue-500 hover:text-blue-700">Телеграмм</a>
+                  <!-- <a href="#" class="text-blue-500 hover:text-blue-700">Телеграмм</a>
                   <a href="#" class="text-blue-500 hover:text-blue-700">ВК</a>
-                  <!-- <a href="#" class="text-blue-500 hover:text-blue-700">LinkedIn</a> -->
+                  <a href="#" class="text-blue-500 hover:text-blue-700">LinkedIn</a> -->
               </div>
               <div>
                 <p id="load">Загрузить фото профиля</p>
@@ -78,7 +78,17 @@ $row = $result->fetch();
                   <div>
                       <p class="text-gray-600"><strong>Телефон:</strong> <?php echo $row['telephone_number'] ?></p>
                       <p class="text-gray-600"><strong>Национальнось:</strong> <?php echo $row['nationality'] ?></p>
-                      <p class="text-gray-600"><strong>Семейное положение:</strong> <?php echo $row['marital_status'] ?></p>
+                      <p class='text-gray-600'><strong>Семейное положение:</strong>
+                    <div>
+                      <?php 
+                    $sql = "SELECT * FROM `shtat` LEFT JOIN `marital_status` ON shtat.id = marital_status.shtat_id WHERE shtat.id = $id";
+                    $result = $conn->query($sql);
+                    while($marital_status_row = $result->fetch(PDO::FETCH_NAMED)){
+                        echo " <h5 class='text-gray-600'>{$marital_status_row['relation']}-{$marital_status_row['information']}</h5>";
+                    }
+                    ?>
+                    </p>
+                    </div>
                   </div>
               </div>
           </div>
@@ -115,6 +125,8 @@ $row = $result->fetch();
                       <p class="text-gray-600"><strong>Серия:</strong> <?php echo $row['passport_series'] ?></p>
                       <p class="text-gray-600"><strong>Номер:</strong> <?php echo $row['passport_numbers'] ?></p>
                       <p class="text-gray-600"><strong>Кем выдан:</strong> <?php echo $row['passport_issued_by'] ?></p>
+                      <p class="text-gray-600"><strong>Когда выдан паспорт:</strong> <?php echo $row['passport_date'] ?></p>
+                      <p class="text-gray-600"><strong>Код подразделения:</strong> <?php echo $row['passport_unit _code'] ?></p>
                       <p class="text-gray-600"><strong>Ксерокопия:</strong> 
                         <a data-fslightbox="passport_photo" href="<?php echo $row['passport_photo'] ?>">
                             <img src="<?php echo $row['passport_photo'] ?>" alt="Аватар" class="w-32 h-32 mx-auto mb-4">
@@ -149,26 +161,84 @@ $row = $result->fetch();
           <div class="bg-white rounded-lg shadow-lg p-6 mt-6">
               <h2 class="text-xl font-bold text-gray-800 mb-4">Образование</h2>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                      <p class="text-gray-600"><strong>Тип образования:</strong><?php echo $row['type_of_education'] ?></p>
-                      <p class="text-gray-600"><strong>Специальность:</strong><?php echo $row['speciality'] ?></p>
-                      <p class="text-gray-600"><strong>Учреждение:</strong><?php echo $row['institution'] ?></p>
-                      <p class="text-gray-600"><strong>Год окончания:</strong><?php echo $row['year_of_graduation'] ?></p>
-                      <p class="text-gray-600"><strong>Ученая степень:</strong> <?php echo $row['academic_degree'] ?></p>
-                      <p class="text-gray-600"><strong>Ксерокопии:</strong><p class="text-gray-600"><strong>Ксерокопии:</strong> 
-                        <a data-fslightbox="diploma_photo" href="<?php echo $row['diploma_photo'] ?>">
-                            <img src="<?php echo $row['diploma_photo'] ?>" alt="Аватар" class="w-32 h-32 mx-auto mb-4">
+                    <?php 
+                    $sql = "SELECT * FROM `shtat` LEFT JOIN `education` ON shtat.id = education.shtat_id WHERE shtat.id = $id";
+                    $result = $conn->query($sql);
+                    while($edu_row = $result->fetch(PDO::FETCH_NAMED)){
+                        echo " <div>
+                      <p class='text-gray-600'><strong>Тип образования:</strong>{$edu_row['type_of_education']}</p>
+                      <p class='text-gray-600'><strong>Специальность:</strong>{$edu_row['speciality']}</p>
+                      <p class='text-gray-600'><strong>Учреждение:</strong>{$edu_row['institution']}</p>
+                      <p class='text-gray-600'><strong>Год окончания:</strong>{$edu_row['year_of_graduation']}</p>
+                      <p class='text-gray-600'><strong>Ученая степень:</strong>{$edu_row['academic_degree']}</p>
+                      <p class='text-gray-600'><strong>Ксерокопии:</strong><p class='text-gray-600'> 
+                        <a data-fslightbox='diploma_photo' href='{$edu_row['diploma_photo']}'>
+                            <img src='{$edu_row['diploma_photo']}' alt='Аватар' class='w-32 h-32 mx-auto mb-4'>
                         </a>
                       </p>
-                      <input class="form-control" type="file" id="diploma_photo" onchange="set_photo(this)">
-                  </div>
+                      <input class='form-control' type='file' id='diploma_photo'onchange='set_photo(this)'>
+                  </div>";
+                    }
+                    ?>
+                 <!-- <div>
+                   <p class="text-gray-600"><strong>Тип образования:</strong><?php echo $edu_row['type_of_education'] ?></p>
+                   <p class="text-gray-600"><strong>Специальность:</strong><?php echo $edu_row['speciality'] ?></p>
+                   <p class="text-gray-600"><strong>Учреждение:</strong><?php echo $edu_row['institution'] ?></p>
+                   <p class="text-gray-600"><strong>Год окончания:</strong><?php echo $edu_row['year_of_graduation'] ?></p>
+                   <p class="text-gray-600"><strong>Ученая степень:</strong> <?php echo $edu_row['academic_degree'] ?></p>
+                   <p class="text-gray-600"><strong>Ксерокопии:</strong><p class="text-gray-600"> 
+                     <a data-fslightbox="diploma_photo" href="<?php echo $edu_row['diploma_photo'] ?>">
+                         <img src="<?php echo $edu_row['diploma_photo'] ?>" alt="Аватар" class="w-32 h-32 mx-auto mb-4">
+                     </a>
+                   </p>
+                <input class="form-control" type="file" id="diploma_photo" onchange="set_photo(this, 'education')">
+                </div> -->
               </div>
           </div>
+        
+          <!-- Участие в операциях -->
+          <div class="bg-white rounded-lg shadow-lg p-6 mt-6">
+              <h2 class="text-xl font-bold text-gray-800 mb-4">Участие в операциях</h2>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <?php 
+                    $sql = "SELECT * FROM `shtat` LEFT JOIN `participation_in_operations` ON shtat.id = participation_in_operations.shtat_id WHERE shtat.id = $id";
+                    $result = $conn->query($sql);
+                    while($operations_row = $result->fetch(PDO::FETCH_NAMED)){
+                        echo " <div>
+                      <p class='text-gray-600'><strong>Место:</strong>{$operations_row['operation_place']}</p>
+                      <p class='text-gray-600'><strong>Дата:</strong>{$operations_row['operation_date']}</p>
+                      <p class='text-gray-600'><strong>Цель:</strong>{$operations_row['operation_purpose']}</p>
+                        </div>";
+                    }
+                    ?>
+              </div>
+          </div>
+
+           <!-- За границей -->
+           <div class="bg-white rounded-lg shadow-lg p-6 mt-6">
+              <h2 class="text-xl font-bold text-gray-800 mb-4">Был за границей</h2>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <?php 
+                    $sql = "SELECT * FROM `shtat` LEFT JOIN `abroad` ON shtat.id = abroad.shtat_id WHERE shtat.id = $id";
+                    $result = $conn->query($sql);
+                    while($abroad_row = $result->fetch(PDO::FETCH_NAMED)){
+                        echo " <div>
+                      <p class='text-gray-600'><strong>Место:</strong>{$abroad_row['abroad_place']}</p>
+                      <p class='text-gray-600'><strong>Дата:</strong>{$abroad_row['abroad_date']}</p>
+                      <p class='text-gray-600'><strong>Цель:</strong>{$abroad_row['abroad_purpose']}</p>
+                        </div>";
+                    }
+                    ?>
+              </div>
+          </div>
+
+
       </div>
       <button type="button" onclick="set_inf()" class="btn btn-blue">Добавить информацию</button>
-      <button type="button" onclick="" class="btn btn-blue">Добавить образование</button>
-      <button type="button" onclick="" class="btn btn-blue">Добавить семейное положение</button>
-      <button type="button" onclick="" class="btn btn-blue">Добавить семейное положение</button>
+      <button type="button" onclick="set_missions()" class="btn btn-blue">Участие в операциях</button>
+      <button type="button" onclick="set_education()" class="btn btn-blue">Образование</button>
+      <button type="button" onclick="set_abroad()" class="btn btn-blue">Был за границей</button>
+      <button type="button" onclick="set_marital_status()" class="btn btn-blue">Семейное положение</button>
     </div>
 </div>
 </div>
@@ -179,11 +249,38 @@ $row = $result->fetch();
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 <script>
+
 function set_inf() { 
     let searchParams = new URLSearchParams(window.location.search);
     let id = searchParams.get('id')
   window.open("personal_info_card_add.php?id="+id, '_blank').focus()
 }
+
+function set_abroad() { 
+    let searchParams = new URLSearchParams(window.location.search);
+    let id = searchParams.get('id')
+  window.open("add_abroad.php?id="+id, '_blank').focus()
+}
+
+function set_missions() { 
+    let searchParams = new URLSearchParams(window.location.search);
+    let id = searchParams.get('id')
+  window.open("add_missions.php?id="+id, '_blank').focus()
+}
+
+function set_education() { 
+    let searchParams = new URLSearchParams(window.location.search);
+    let id = searchParams.get('id')
+  window.open("add_education.php?id="+id, '_blank').focus()
+}
+
+function set_marital_status() { 
+    let searchParams = new URLSearchParams(window.location.search);
+    let id = searchParams.get('id')
+  window.open("add_marital_status.php?id="+id, '_blank').focus()
+}
+
+
 function getAge(b){
   const now = new Date();
   const date = new Date(b);
@@ -192,8 +289,6 @@ function getAge(b){
   
   return diff - 1 + (addOne ? 1 : 0);
 }
-
-
 
 
 function set_photo(f) {  
@@ -220,6 +315,6 @@ function set_photo(f) {
 }
 
 </script>
-<script src="fslightbox.js"></script>
+<script src="js/fslightbox.js"></script>
 </body>
 </html>
