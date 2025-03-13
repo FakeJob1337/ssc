@@ -64,11 +64,17 @@ $row = $result->fetch();
                 <p id="load">Загрузить фото профиля</p>
                     <input class="form-control" type="file" id="profile_photo" onchange="set_photo(this)">
               </div>
+              <button type="button" id="delete_people" onclick="delete_people()" class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+				        <i class="fa fa-minus fa-2x" aria-hidden="true"></i><br><p class="mb-0">Человека</p>
+			        </button>
+			       <button type="button" id="swap_people" onclick="swap_people()" class="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+				        <i class="fa fa-random fa-2x" aria-hidden="true"></i><br><p class="mb-0">Перенос</p>
+			       </button>
           </div>
 
           <!-- Основная информация -->
           <div class="bg-white rounded-lg shadow-lg p-6 mt-6">
-              <h2 class="text-xl font-bold text-gray-800 mb-4">Основная информация</h2>
+              <h2 class="text-xl font-bold text-gray-800 mb-4">Основная информация <button type="button" tb="personal_information" class="btn btn-info del">Удалить информацию</button></h2>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                       <p class="text-gray-600"><strong>Дата рождения:</strong> <?php echo $row['birthday'] ?></p>
@@ -159,7 +165,8 @@ $row = $result->fetch();
           </div> 
           <!-- Образование -->
           <div class="bg-white rounded-lg shadow-lg p-6 mt-6">
-              <h2 class="text-xl font-bold text-gray-800 mb-4">Образование</h2>
+              <h2 class="text-xl font-bold text-gray-800 mb-4">Образование    <button type="button" tb="education" class="btn btn-info del">Удалить образование</button></h2>
+
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <?php 
                     $sql = "SELECT * FROM `shtat` LEFT JOIN `education` ON shtat.id = education.shtat_id WHERE shtat.id = $id";
@@ -198,7 +205,8 @@ $row = $result->fetch();
         
           <!-- Участие в операциях -->
           <div class="bg-white rounded-lg shadow-lg p-6 mt-6">
-              <h2 class="text-xl font-bold text-gray-800 mb-4">Участие в операциях</h2>
+              <h2 class="text-xl font-bold text-gray-800 mb-4">Участие в операциях  <button type="button" tb="participation_in_operations" class="btn btn-info del">Удалить уч в операциях</button></h2>
+
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <?php 
                     $sql = "SELECT * FROM `shtat` LEFT JOIN `participation_in_operations` ON shtat.id = participation_in_operations.shtat_id WHERE shtat.id = $id";
@@ -216,7 +224,8 @@ $row = $result->fetch();
 
            <!-- За границей -->
            <div class="bg-white rounded-lg shadow-lg p-6 mt-6">
-              <h2 class="text-xl font-bold text-gray-800 mb-4">Был за границей</h2>
+              <h2 class="text-xl font-bold text-gray-800 mb-4">Был за границей 
+                <button type="button" tb="abroad" class="btn btn-info del">Удалить был за границей</button></h2>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <?php 
                     $sql = "SELECT * FROM `shtat` LEFT JOIN `abroad` ON shtat.id = abroad.shtat_id WHERE shtat.id = $id";
@@ -249,7 +258,35 @@ $row = $result->fetch();
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 <script>
-
+function delete_people() {
+  let searchParams = new URLSearchParams(window.location.search);
+  let id = searchParams.get('id')
+  $.ajax({
+        type:"POST",
+        url:"php_scripts/delete_people.php",
+        data: {"id": id},
+        cache: false,
+        success: function(responce){ 
+            alert('Удалено');
+        }
+    })
+}
+function swap_people(){
+  
+}
+$(".del").click(function (e) {
+  let searchParams = new URLSearchParams(window.location.search);
+  let id = searchParams.get('id') 
+  $.ajax({
+        type:"POST",
+        url:"php_scripts/delete_profile_inf.php",
+        data: {"table": $(this).attr("tb"), "id": id},
+        cache: false,
+        success: function(responce){ 
+            alert('Удалено');
+        }
+    })
+});
 function set_inf() { 
     let searchParams = new URLSearchParams(window.location.search);
     let id = searchParams.get('id')

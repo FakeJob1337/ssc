@@ -32,7 +32,7 @@
 				<i class="fa fa-plus fa-2x" aria-hidden="true"></i><br><p class="mb-0">Вакансию</p>
 			</button>
 			<button type="button" class="btn btn-success" id="btnExel">
-				<i class="fa fa-file-excel-o fa-2x" aria-hidden="true"></i><br><p class="mb-0">Exel</p>
+				<i class="fa fa-file-excel-o fa-2x" aria-hidden="true"></i><br><p class="mb-0">Excel</p>
 			</button>
 
 			<button type="button" class="btn btn-info" id="btnWord">
